@@ -23,4 +23,4 @@ typecheck:
 
 test:
 	@clear
-	@npm test --verbose
+	@npm test

@@ -26,6 +26,7 @@ let proxy: GAPProxy | null = null;
 export interface GAPHelpers {
     renderTemplate: (tpl: string, data: any) => string;
     fetch(input?: Request | string, init?: RequestInit): Promise<Response>;
+    getState: (path: string) => string | null;
 }
 
 /**
@@ -69,6 +70,17 @@ export const defaultHelpers = {
             return r;
         });
     },
+    getState: (path: string): string | null => {
+        // https://stackoverflow.com/a/15724300        
+        const value = "; " + document.cookie;
+        const parts = value.split("; " + path + "=");
+        
+        if (parts.length == 2) {
+            return parts.pop().split(";").shift();        
+        }
+        
+        return null;
+    }
 };
 
 /**
