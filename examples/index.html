@@ -1,0 +1,38 @@
+<!doctype html>
+<head>
+    <script defer src="../dist/gap-core.js"></script>
+    <script defer src="../dist/gap-list.js"></script>
+    <script defer src="../dist/gap-ab.js"></script>
+</head>
+<body>
+    <h1>Some examples of GAP components</h1>
+    
+    <h2>gap-list</h2>
+    <gap-list data-src="https://amp.theguardian.com/editionalised-nav.json">
+        <template>
+            [[ refreshStatus ]]
+        </template>
+    </gap-list>
+    
+    <h2>gap-ab</h2>
+    <script type="text/javascript">
+        document.cookie = 'experimentBar=true';
+    </script>
+    <p>Note: may not work in Chrome as it doesn't allow local cookies.</p>
+    <p>(experimentBar cookie set to 'true')</p>
+    <p>In control:</p>
+    <gap-ab id='test' data-flag='experimentFoo'>
+        <template data-variant><em>Showing experiment!</em></template>
+        <template data-control><em>Showing control!</em></template>
+    </gap-ab>
+    <p>In experiment (checks a different cookie):</p>
+    <gap-ab id='test' data-flag='experimentBar'>
+        <template data-variant><em>Showing experiment!</em></template>
+        <template data-control><em>Showing control!</em></template>
+    </gap-ab>
+
+    <h2>Combination (gap-list in gap-ab)</h2>
+    
+
+</body>
+</html>

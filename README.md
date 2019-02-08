@@ -41,3 +41,4 @@ Behaviours we want to see:
 Mechanisms:
 
 * generate page with lots of elements
+* manually profile it in Chrome

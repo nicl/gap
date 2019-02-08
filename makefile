@@ -16,8 +16,9 @@ clean: clear
 dev: clear install
 	webpack-dev-server --mode=development --config webpack.config.js
 
-build: clear install
+build: clear clean install
 	webpack --mode production --config webpack.config.js
+	@ls -hal ./dist
 
 typecheck: clear
 	tsc
