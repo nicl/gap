@@ -89,20 +89,18 @@ export const defaultHelpers = {
  * Instructs extension elements to execute. Eventually this will do clever
  * things like buffer and batch.
  */
-const render = () => {
+const render = (tag: string, extension: Extension) => {
     // caching and throttling
-    extensions.forEach((extension, tag) => {
-        const tags = document.getElementsByTagName(tag);
-        Array.prototype.forEach.call(tags, (el: Element) =>
-            extension.do(el, defaultHelpers),
-        );
-    });
+    const tags = document.getElementsByTagName(tag);
+    Array.prototype.forEach.call(tags, (el: Element) =>
+        extension.do(el, defaultHelpers),
+    );
 };
 
 const GAP = {
     registerElement: (tag: string, extension: Extension) => {
         extensions.set(tag, extension);
-        render();
+        render(tag, extension);
     },
     // See gap-proxy readme for info. NOT RECOMMENDED FOR PRODUCTION.
     registerProxy: (prox: GAPProxy) => (proxy = prox),
