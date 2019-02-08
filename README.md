@@ -22,3 +22,22 @@ extensions. `defer` is a good way to achieve this. E.g. in your page head:
 
     <script defer src="https://s3-eu-west-1.amazonaws.com/com-gu-gap/v0/gap-core.js" />
     .. // some extensions
+
+# Performance testing
+
+Questions to answer:
+
+* how do extensions compose and how does this perform?
+* what happens with lots of components on the page?
+
+Behaviours we want to see:
+
+* no forced re-style/flows
+* lazy loading elements not in the viewport
+* minimise number of paints
+* batch network calls (NOPE - browser cache can handle that)
+* easy to see in the console what is going on
+
+Mechanisms:
+
+* generate page with lots of elements

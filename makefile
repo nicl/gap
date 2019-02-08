@@ -1,27 +1,26 @@
 export PATH := node_modules/.bin:$(PATH)
 export SHELL := /usr/bin/env bash
 
-install: 
+help:
+	@echo "Run 'make install' to install gap, or use tab completion to see other commands."
+
+clear:
 	@clear
-	@echo "refreshing dependencies"
+
+install: clear
 	@npm install
 
-clean:
+clean: clear
 	@rm -rf dist
 
-dev: 
-	@clear clean install
-	@echo "starting gap dev server..."
-	webpack-dev-server --mode=development --config scripts/webpack/gap.js
+dev: clear install
+	webpack-dev-server --mode=development --config webpack.config.js
 
-build:
-	@clear
+build: clear install
 	webpack --mode production --config webpack.config.js
 
-typecheck:
-	@clear
+typecheck: clear
 	tsc
 
-test:
-	@clear
+test: clear
 	@npm test
