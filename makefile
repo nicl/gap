@@ -19,7 +19,8 @@ build:
 	webpack --mode production --config webpack.config.js
 
 typecheck:
-	@clear tsc
+	@clear
+	tsc
 
 test:
 	@clear
