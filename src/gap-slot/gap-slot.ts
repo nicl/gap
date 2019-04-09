@@ -18,10 +18,10 @@ const GapSlot: Extension = {
         const slotID = el.attributes.getNamedItem("data-slot-id");
         if (slotID === null) return;
 
-        const configObject = el.attributes.getNamedItem("data-config-object");
-        if (configObject === null) return;
+        const configPath = el.attributes.getNamedItem("data-config-path");
+        if (configPath === null) return;
 
-        const jsonConfig = JSON.stringify(window[configObject.value]);
+        const jsonConfig = JSON.stringify(window[configPath.value]);
         const urlEncodedConfig = encodeURIComponent(jsonConfig);
 
         const res = await helpers.fetch(

@@ -23,7 +23,7 @@ describe("gap-slot", () => {
             IsContributor: true
         };
 
-        document.body.innerHTML = `<gap-slot id='test' data-src='example.json' data-slot-id='slotA' data-config-object="gapConfig" />`;
+        document.body.innerHTML = `<gap-slot id='test' data-src='example.json' data-slot-id='slotA' data-config-path="gapConfig" />`;
         const el = document.getElementById("test");
 
         if (el === null) {
