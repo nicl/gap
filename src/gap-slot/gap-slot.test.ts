@@ -19,11 +19,11 @@ describe("gap-slot", () => {
             };
         });
 
-        window.gapConfig = {
-            IsContributor: true
+        window.foo = {
+            gapConfig: { IsContributor: true }
         };
 
-        document.body.innerHTML = `<gap-slot id='test' data-src='example.json' data-slot-id='slotA' data-config-path="gapConfig" />`;
+        document.body.innerHTML = `<gap-slot id='test' data-src='example.json' data-slot-id='slotA' data-config-path="foo.gapConfig" />`;
         const el = document.getElementById("test");
 
         if (el === null) {

@@ -12,6 +12,24 @@ import { Extension, GAPHelpers } from "../gap-core/gap-core";
  */
 const GapSlot: Extension = {
     do: async (el: Element, helpers: GAPHelpers): Promise<void> => {
+        const pathLookup = (obj: any, path: string): any => {
+            for (
+                var i = 0, segments = path.split("."), len = segments.length;
+                i < len;
+                i++
+            ) {
+                const found = obj[segments[i]];
+                console.log(segments[i]);
+                if (found) {
+                    obj = found;
+                } else {
+                    console.log("path not found in window; " + path);
+                    return {};
+                }
+            }
+            return obj;
+        };
+
         const src = el.attributes.getNamedItem("data-src");
         if (src === null) return;
 
@@ -21,7 +39,8 @@ const GapSlot: Extension = {
         const configPath = el.attributes.getNamedItem("data-config-path");
         if (configPath === null) return;
 
-        const jsonConfig = JSON.stringify(window[configPath.value]);
+        const config = pathLookup(window, configPath.value);
+        const jsonConfig = JSON.stringify(config);
         const urlEncodedConfig = encodeURIComponent(jsonConfig);
 
         const res = await helpers.fetch(
