@@ -1,4 +1,4 @@
-import Mustache from 'mustache';
+import Mustache from "mustache";
 
 /**
  * This is the main loader for Gap.
@@ -59,11 +59,11 @@ export interface Extension {
 
 export const defaultHelpers = {
     renderTemplate: (tpl: string, data: any) => {
-        return Mustache.render(tpl, data, null, ['[[', ']]']);
+        return Mustache.render(tpl, data, null, ["[[", "]]"]);
     },
     fetch: (
         input?: Request | string,
-        init?: RequestInit,
+        init?: RequestInit
     ): Promise<Response> => {
         return fetch(input, init).then(r => {
             if (proxy) return proxy.transform(r);
@@ -71,14 +71,17 @@ export const defaultHelpers = {
         });
     },
     getState: (path: string): string | null => {
-        // https://stackoverflow.com/a/15724300        
+        // https://stackoverflow.com/a/15724300
         const value = "; " + document.cookie;
         const parts = value.split("; " + path + "=");
-        
+
         if (parts.length == 2) {
-            return parts.pop().split(";").shift();        
+            return parts
+                .pop()
+                .split(";")
+                .shift();
         }
-        
+
         return null;
     }
 };
@@ -93,7 +96,7 @@ const render = (tag: string, extension: Extension) => {
     // caching and throttling
     const tags = document.getElementsByTagName(tag);
     Array.prototype.forEach.call(tags, (el: Element) =>
-        extension.do(el, defaultHelpers),
+        extension.do(el, defaultHelpers)
     );
 };
 
@@ -103,7 +106,7 @@ const GAP = {
         render(tag, extension);
     },
     // See gap-proxy readme for info. NOT RECOMMENDED FOR PRODUCTION.
-    registerProxy: (prox: GAPProxy) => (proxy = prox),
+    registerProxy: (prox: GAPProxy) => (proxy = prox)
 };
 
 window.GAP = GAP;
