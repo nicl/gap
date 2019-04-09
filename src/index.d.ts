@@ -3,11 +3,12 @@ export interface GAPProxy {
 }
 
 declare global {
-    interface Window { 
+    interface Window {
         GAP: {
             registerElement: (tag: string, extension: any) => any;
-            registerProxy: (prox: GAPProxy) => void,
-        }
+            registerProxy: (prox: GAPProxy) => void;
+        };
+        [key: string]: any;
     }
 }
 
