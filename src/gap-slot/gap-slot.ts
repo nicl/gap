@@ -19,7 +19,6 @@ const GapSlot: Extension = {
                 i++
             ) {
                 const found = obj[segments[i]];
-                console.log(segments[i]);
                 if (found) {
                     obj = found;
                 } else {
