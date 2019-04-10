@@ -89,14 +89,16 @@ export const defaultHelpers = {
 };
 
 const GAP = {
-    // Register your GAP extensions Extensions are created as custom elements,
-    // so you will likely want to include a suitable polyfill on older browsers.
-    // Fortunately these are not very large any more (< 15kb minified, or 5kb
-    // minified and gzipped).
+    /**
+     * Register your GAP extensions Extensions are created as custom elements,
+     * so you will likely want to include a suitable polyfill on older browsers.
+     * Fortunately these are not very large any more (< 15kb minified, or 5kb
+     * minified and gzipped).
+     */
     registerElement: (tag: string, extension: Extension) => {
         if (!customElements) {
             console.log(
-                "GAP requires custom elements, please include a suitable polyfill"
+                "GAP requires custom elements; please include a suitable polyfill"
             );
             return;
         }
