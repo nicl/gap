@@ -12,8 +12,6 @@ import Mustache from "mustache";
  * extension class.
  */
 
-let proxy: GAPProxy | null = null;
-
 /**
  * A collection of GAP utilities. It is expected that extensions use these for
  * associated functionality. GAP is then free to optimise these over time, for
@@ -45,9 +43,10 @@ export interface GAPHelpers {
  * data structures so care is needed.
  *
  * A core principle of GAP is to avoid custom client-side Javascript. As such,
- * use of GAPPRoxy in production is *strong discouraged*.
+ * use of Roxy in production is *strong discouraged*.
  */
-export interface GAPProxy {
+let proxy: Proxy | null = null;
+export interface Proxy {
     transform: (resp: Response) => Response;
 }
 
@@ -114,7 +113,7 @@ const GAP = {
         );
     },
     // See gap-proxy readme for info. NOT RECOMMENDED FOR PRODUCTION.
-    registerProxy: (prox: GAPProxy) => (proxy = prox)
+    registerProxy: (prox: Proxy) => (proxy = prox)
 };
 
 window.GAP = GAP;
