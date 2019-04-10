@@ -12,8 +12,6 @@ import Mustache from "mustache";
  * extension class.
  */
 
-const extensions: Map<string, Extension> = new Map();
-
 let proxy: GAPProxy | null = null;
 
 /**
@@ -61,6 +59,8 @@ export const defaultHelpers = {
     renderTemplate: (tpl: string, data: any) => {
         return Mustache.render(tpl, data, null, ["[[", "]]"]);
     },
+
+    // Eventually this will cache/batch calls
     fetch: (
         input?: Request | string,
         init?: RequestInit
@@ -70,6 +70,8 @@ export const defaultHelpers = {
             return r;
         });
     },
+
+    // A way to access cookie values
     getState: (path: string): string | null => {
         // https://stackoverflow.com/a/15724300
         const value = "; " + document.cookie;
@@ -86,24 +88,28 @@ export const defaultHelpers = {
     }
 };
 
-/**
- * Main rendering function
- *
- * Instructs extension elements to execute. Eventually this will do clever
- * things like buffer and batch.
- */
-const render = (tag: string, extension: Extension) => {
-    // caching and throttling
-    const tags = document.getElementsByTagName(tag);
-    Array.prototype.forEach.call(tags, (el: Element) =>
-        extension.do(el, defaultHelpers)
-    );
-};
-
 const GAP = {
+    // Register your GAP extensions Extensions are created as custom elements,
+    // so you will likely want to include a suitable polyfill on older browsers.
+    // Fortunately these are not very large any more (< 15kb minified, or 5kb
+    // minified and gzipped).
     registerElement: (tag: string, extension: Extension) => {
-        extensions.set(tag, extension);
-        render(tag, extension);
+        if (!customElements) {
+            console.log(
+                "GAP requires custom elements, please include a suitable polyfill"
+            );
+            return;
+        }
+
+        customElements.define(
+            tag,
+            class extends HTMLElement {
+                constructor() {
+                    super();
+                    extension.do(this, defaultHelpers);
+                }
+            }
+        );
     },
     // See gap-proxy readme for info. NOT RECOMMENDED FOR PRODUCTION.
     registerProxy: (prox: GAPProxy) => (proxy = prox)

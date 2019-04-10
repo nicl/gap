@@ -34,5 +34,5 @@ const GapDisplay: Extension = {
 export default GapDisplay;
 
 if (window.GAP) {
-    window.GAP.registerElement("gap-list", GapDisplay);
+    window.GAP.registerElement("gap-display", GapDisplay);
 }
