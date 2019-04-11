@@ -5,11 +5,8 @@
         "noImplicitAny": true,
         "module": "ESNext",
         "target": "es2015",
-        "esModuleInterop": true,     
-        "lib": ["esnext","es2015","dom"],
+        "esModuleInterop": true,
+        "lib": ["esnext", "es2015", "dom"]
     },
-    "exclude": [
-        "node_modules",
-        "dist"
-    ],
+    "exclude": ["node_modules", "dist"]
 }

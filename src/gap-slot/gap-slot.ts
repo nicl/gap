@@ -38,16 +38,19 @@ const GapSlot: Extension = {
         const configPath = el.attributes.getNamedItem("data-config-path");
         if (configPath === null) return;
 
-        const config = pathLookup(window, configPath.value);
+        const conditions = pathLookup(window, configPath.value);
+        const config = { SlotID: slotID.value, Conditions: conditions };
         const jsonConfig = JSON.stringify(config);
+
         const urlEncodedConfig = encodeURIComponent(jsonConfig);
 
-        const res = await helpers.fetch(
-            src.value + "?config=" + urlEncodedConfig
-        );
+        const res = await helpers.fetch(src.value + "?q=" + urlEncodedConfig);
         const json = await res.json();
         const markup = json[slotID.value];
-        el.innerHTML = markup;
+
+        if (markup) {
+            el.innerHTML = markup;
+        }
     }
 };
 
