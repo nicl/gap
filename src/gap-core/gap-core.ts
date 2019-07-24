@@ -56,7 +56,7 @@ export interface Extension {
 
 export const defaultHelpers = {
     renderTemplate: (tpl: string, data: any) => {
-        return Mustache.render(tpl, data, null, ["[[", "]]"]);
+        return Mustache.render(tpl, data, null, ["{{", "}}"]);
     },
 
     // Eventually this will cache/batch calls
