@@ -4,6 +4,8 @@ import { defaultHelpers } from "../gap-core/gap-core";
 describe("gap-slot", () => {
     it("should inject the relevant slot", async () => {
         const globalAny: any = global;
+
+        // Return component based on config
         globalAny.fetch = jest.fn(async (req: string) => {
             const queryParams = req.split("?")[1];
             const json = new URLSearchParams(queryParams).get("config");

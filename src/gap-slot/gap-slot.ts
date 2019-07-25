@@ -8,7 +8,8 @@ import { Extension, GAPHelpers } from "../gap-core/gap-core";
  * So unlike gap-list, no templating is supported here.
  *
  * However data is sent to the slots API with *config* - this is collected from
- * the global.gap.config object.
+ * a global config object from the path specified on the `data-config-path
+ * attribute`.
  */
 const GapSlot: Extension = {
     do: async (el: Element, helpers: GAPHelpers): Promise<void> => {
@@ -38,13 +39,14 @@ const GapSlot: Extension = {
         const configPath = el.attributes.getNamedItem("data-config-path");
         if (configPath === null) return;
 
-        const conditions = pathLookup(window, configPath.value);
-        const config = { SlotID: slotID.value, Conditions: conditions };
+        const config = pathLookup(window, configPath.value);
         const jsonConfig = JSON.stringify(config);
 
         const urlEncodedConfig = encodeURIComponent(jsonConfig);
 
-        const res = await helpers.fetch(src.value + "?q=" + urlEncodedConfig);
+        const res = await helpers.fetch(
+            src.value + "?config=" + urlEncodedConfig
+        );
         const json = await res.json();
         const markup = json[slotID.value];
 
