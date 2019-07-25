@@ -7,7 +7,8 @@ module.exports = () => ({
         "gap-proxy": "./src/gap-proxy/gap-proxy.ts",
         "gap-ab": "./src/gap-ab/gap-ab.ts",
         "gap-slot": "./src/gap-slot/gap-slot.ts",
-        "gap-display": "./src/gap-display/gap-display.ts"
+        "gap-display": "./src/gap-display/gap-display.ts",
+        "gap-select": "./src/gap-display/gap-select.ts"
     },
     output: {
         path: resolve(__dirname, `./dist/`),
