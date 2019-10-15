@@ -23,6 +23,15 @@ export interface GAPHelpers {
     renderTemplate: (tpl: string, data: any) => string;
     fetch(input?: Request | string, init?: RequestInit): Promise<Response>;
     getState: (path: string) => string | null;
+    getRequiredProps: (
+        el: Element,
+        attributes: string[]
+    ) => { [key: string]: string };
+    getOptionalProps: (
+        el: Element,
+        attributes: string[]
+    ) => { [key: string]: string | null };
+    getRequiredDomElement: (el: Element, selector: string) => Element;
 }
 
 /**
@@ -84,6 +93,49 @@ export const defaultHelpers = {
         }
 
         return null;
+    },
+
+    // Note, will assume a 'data-' prefix to attribute names
+    getRequiredProps: (
+        el: Element,
+        attributes: string[]
+    ): { [key: string]: string } => {
+        let props: { [key: string]: string } = {};
+
+        attributes.forEach(attr => {
+            const value = el.getAttribute("data-" + attr);
+            if (value) {
+                props[attr] = value;
+            } else {
+                throw new Error(`required attribute ${attr} not found`);
+            }
+        });
+
+        return props;
+    },
+
+    // Note, will assume a 'data-' prefix to attribute names
+    getOptionalProps: (
+        el: Element,
+        attributes: string[]
+    ): { [key: string]: string | null } => {
+        let props: { [key: string]: string | null } = {};
+
+        attributes.forEach(attr => {
+            const value = el.getAttribute("data-" + attr);
+            props[attr] = value;
+        });
+
+        return props;
+    },
+
+    getRequiredDomElement: (el: Element, selector: string): Element => {
+        const found = el.querySelector(selector);
+        if (!found) {
+            throw new Error(`required child ${selector} not found`);
+        }
+
+        return found;
     }
 };
 

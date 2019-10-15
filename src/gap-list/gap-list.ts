@@ -1,4 +1,4 @@
-import { Extension, GAPHelpers } from '../gap-core/gap-core';
+import { Extension, GAPHelpers } from "../gap-core/gap-core";
 
 /**
  * Loads JSON content from a CORS endpoint and renders it through a provided
@@ -6,22 +6,19 @@ import { Extension, GAPHelpers } from '../gap-core/gap-core';
  */
 const GapList: Extension = {
     do: async (el: Element, helpers: GAPHelpers): Promise<void> => {
-        const src = el.attributes.getNamedItem('data-src');
-        if (src === null) return;
+        const { src } = helpers.getRequiredProps(el, ["src"]);
+        const tpl = helpers.getRequiredDomElement(el, "template");
 
-        const tpl = el.querySelector('template');
-        if (tpl === null) return;
-
-        const res = await helpers.fetch(src.value);
+        const res = await helpers.fetch(src);
         const json = await res.json();
         const html = helpers.renderTemplate(tpl.innerHTML, json);
 
         el.innerHTML = html;
-    },
+    }
 };
 
 export default GapList;
 
 if (window.GAP) {
-    window.GAP.registerElement('gap-list', GapList);
+    window.GAP.registerElement("gap-list", GapList);
 }
