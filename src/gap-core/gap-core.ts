@@ -1,4 +1,5 @@
 import Mustache from "mustache";
+import { render } from "preact";
 
 /**
  * This is the main loader for Gap.
@@ -35,6 +36,7 @@ export interface GAPHelpers {
     ) => { [key: string]: string | null };
     getRequiredDomElement: (el: Element, selector: string) => Element;
     getRequiredDomElements: (el: Element, selector: string) => Element[];
+    renderPreact: (el: Element, component: string) => void;
 }
 
 /**
@@ -147,6 +149,10 @@ export const defaultHelpers = {
         found.forEach(el => elems.push(el));
 
         return elems;
+    },
+
+    renderPreact: (el: Element, component: preact.ComponentChild): void => {
+        return render(component, el);
     }
 };
 
