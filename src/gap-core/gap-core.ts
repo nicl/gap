@@ -18,6 +18,8 @@ import Mustache from "mustache";
  * example to batch or cache API calls.
  *
  * But it is also useful to stub or mock these for testing purposes.
+ *
+ * TODO - split this into multiple, smaller, interfaces.
  */
 export interface GAPHelpers {
     renderTemplate: (tpl: string, data: any) => string;
