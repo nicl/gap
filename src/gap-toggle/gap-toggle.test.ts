@@ -3,7 +3,7 @@ import { defaultHelpers } from "../gap-core/gap-core";
 
 describe("gap-toggle", () => {
     it("should hide target on click", async () => {
-        document.body.innerHTML = `<div id='target'>Foo</div><gap-display id='test' data-hide data-target='target'/>`;
+        document.body.innerHTML = `<div id='target'>Foo</div><gap-display id='test' data-hide="true" data-target='target'/>`;
 
         const el = document.getElementById("test");
         if (el === null) {

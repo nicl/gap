@@ -23,21 +23,19 @@ const GapToggle: Extension = {
             }
         };
 
-        const targetID = el.attributes.getNamedItem("data-target");
-        if (targetID === null) return;
+        const { target } = helpers.getRequiredProps(el, ["target"]);
+        const targetID = "#" + target;
+        const { hide } = helpers.getOptionalProps(el, ["hide"]);
 
-        const shouldHide = el.attributes.getNamedItem("data-hide");
-
-        const target = document.getElementById(targetID.value);
-        if (target === null) return;
+        const targetEl = helpers.getRequiredDomElement(document.body, targetID);
 
         // TODO - likely that click isn't great for mobile so should refine
         el.addEventListener("click", () => {
             if (!activated) {
-                if (shouldHide) {
-                    target.setAttribute("hidden", "true");
+                if (hide) {
+                    targetEl.setAttribute("hidden", "true");
                 } else {
-                    target.removeAttribute("hidden");
+                    targetEl.removeAttribute("hidden");
                 }
 
                 el.setAttribute("data-selected", "true");
@@ -47,7 +45,7 @@ const GapToggle: Extension = {
 
             // if already activated, simply toggle stuff
             toggle(el, "data-selected");
-            toggle(target, "hidden");
+            toggle(targetEl, "hidden");
         });
     }
 };

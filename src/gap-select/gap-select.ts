@@ -10,7 +10,7 @@ import { Extension, GAPHelpers } from "../gap-core/gap-core";
  */
 const GapSelect: Extension = {
     do: async (el: Element, helpers: GAPHelpers): Promise<void> => {
-        const options = el.querySelectorAll("[data-option]");
+        const options = helpers.getRequiredDomElements(el, "[data-option]");
 
         options.forEach(el => {
             el.addEventListener("click", () => {

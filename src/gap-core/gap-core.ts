@@ -34,6 +34,7 @@ export interface GAPHelpers {
         attributes: string[]
     ) => { [key: string]: string | null };
     getRequiredDomElement: (el: Element, selector: string) => Element;
+    getRequiredDomElements: (el: Element, selector: string) => Element[];
 }
 
 /**
@@ -138,6 +139,14 @@ export const defaultHelpers = {
         }
 
         return found;
+    },
+
+    getRequiredDomElements: (el: Element, selector: string): Element[] => {
+        const found = el.querySelectorAll(selector);
+        let elems: Element[] = [];
+        found.forEach(el => elems.push(el));
+
+        return elems;
     }
 };
 
