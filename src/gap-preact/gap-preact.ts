@@ -11,7 +11,14 @@ const GapPreact: Extension = {
 
         const mount = () => {
             console.log("MOUNTING!");
-            helpers.renderPreact(el, window.foo); // TODO foo is arbitrary here, we should use a UUID passed to src as a query param
+
+            try {
+                helpers.renderPreact(el, window.foo); // TODO foo is arbitrary here, we should use a UUID passed to src as a query param
+                console.log("inner html is: " + el.innerHTML);
+            } catch (e) {
+                console.log("arghh!!" + e);
+            }
+
             done = Promise.resolve();
         };
 

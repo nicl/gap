@@ -11,7 +11,7 @@ describe("gap-preact", () => {
 
             return {
                 ok: true,
-                text: () => "const foo = () => 'foo'; window.foo = foo;"
+                text: () => "const foo = () => h('div'); window.foo = foo;"
             };
         });
 
@@ -23,7 +23,8 @@ describe("gap-preact", () => {
             return;
         }
 
-        await GapPreact.do(el as Element, defaultHelpers);
+        const done = await GapPreact.do(el as Element, defaultHelpers);
+        console.log(window.foo);
         expect(el.innerHTML).toBe("foo");
     });
 });
